@@ -5,6 +5,7 @@ import 'package:viam_sdk/src/domain/app/service/app_api_data_source.dart';
 import 'package:viam_sdk/src/domain/auth_rdk/service/auth_api_service.dart';
 import 'package:viam_sdk/src/domain/camera/service/camera_api_service.dart';
 import 'package:viam_sdk/src/domain/data/service/data_api_service.dart';
+import 'package:viam_sdk/src/domain/data/service/data_sync_service.dart';
 import 'package:viam_sdk/src/domain/movement/service/viam_movement_service.dart';
 import 'package:viam_sdk/src/domain/resource/service/viam_resource_service.dart';
 import 'package:viam_sdk/src/domain/sensor/service/viam_sensor_service.dart';
@@ -12,6 +13,7 @@ import 'package:viam_sdk/src/domain/web_rtc/data_source/web_rtc_api_data_source.
 import 'package:viam_sdk/src/domain/web_rtc/web_rtc_client/web_rtc_client.dart';
 import 'package:viam_sdk/src/domain/web_rtc/web_rtc_client/web_rtc_peer_connection.dart';
 import 'package:viam_sdk/src/gen/app/data/v1/data.pbgrpc.dart';
+import 'package:viam_sdk/src/gen/app/datasync/v1/data_sync.pbgrpc.dart';
 import 'package:viam_sdk/src/gen/app/v1/app.pbgrpc.dart';
 import 'package:viam_sdk/src/gen/component/camera/v1/camera.pbgrpc.dart';
 import 'package:viam_sdk/src/gen/component/movementsensor/v1/movementsensor.pbgrpc.dart';
@@ -19,13 +21,10 @@ import 'package:viam_sdk/src/gen/proto/stream/v1/stream.pbgrpc.dart';
 import 'package:viam_sdk/src/gen/robot/v1/robot.pbgrpc.dart';
 import 'package:viam_sdk/src/gen/service/sensors/v1/sensors.pbgrpc.dart';
 
-part 'di_service.dart';
-
-part 'di_clients/di_grpc_client.dart';
-
-part 'di_clients/di_web_rtc_client.dart';
-
 part 'di_clients/di_auth0.dart';
+part 'di_clients/di_grpc_client.dart';
+part 'di_clients/di_web_rtc_client.dart';
+part 'di_service.dart';
 
 Future<Credentials> login(
   String domain,
@@ -64,6 +63,19 @@ ViamAppService getAppService(
   String? accessToken,
 ) =>
     _getViamAppService(client, url, secure, accessToken);
+
+DataSyncService getDataSyncService(
+  ClientChannelBase client,
+  String url,
+  String? secure,
+  String? accessToken,
+) =>
+    DataSyncService(
+      DataSyncServiceClient(
+        client,
+        options: getOptionsWithAccessToken(accessToken),
+      ),
+    );
 
 DataService getDataService(
   ClientChannelBase client,

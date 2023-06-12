@@ -3,6 +3,7 @@ import 'package:grpc/grpc_connection_interface.dart';
 import 'package:viam_sdk/src/domain/app/service/app_api_data_source.dart';
 import 'package:viam_sdk/src/domain/camera/service/camera_api_service.dart';
 import 'package:viam_sdk/src/domain/data/service/data_api_service.dart';
+import 'package:viam_sdk/src/domain/data/service/data_sync_service.dart';
 import 'package:viam_sdk/src/domain/movement/service/viam_movement_service.dart';
 import 'package:viam_sdk/src/domain/resource/service/viam_resource_service.dart';
 import 'package:viam_sdk/src/domain/sensor/service/viam_sensor_service.dart';
@@ -46,4 +47,6 @@ abstract class Viam {
   DataService get dataService;
 
   ClientChannelBase get channel;
+
+  DataSyncService get dataSyncService;
 }

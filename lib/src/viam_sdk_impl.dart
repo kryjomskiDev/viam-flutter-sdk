@@ -4,6 +4,7 @@ import 'package:viam_sdk/src/di/di.dart';
 import 'package:viam_sdk/src/domain/app/service/app_api_data_source.dart';
 import 'package:viam_sdk/src/domain/camera/service/camera_api_service.dart';
 import 'package:viam_sdk/src/domain/data/service/data_api_service.dart';
+import 'package:viam_sdk/src/domain/data/service/data_sync_service.dart';
 import 'package:viam_sdk/src/domain/movement/service/viam_movement_service.dart';
 import 'package:viam_sdk/src/domain/resource/service/viam_resource_service.dart';
 import 'package:viam_sdk/src/domain/sensor/service/viam_sensor_service.dart';
@@ -18,6 +19,7 @@ class ViamImpl implements Viam {
   ViamMovementService? movementService;
   ViamSensorService? sensorService;
   DataService? _dataService;
+  DataSyncService? _dataSyncService;
 
   @override
   Future<Credentials> authenticate(String authDomain, String clientId, String? audience, String? scheme) => login(
@@ -81,6 +83,13 @@ class ViamImpl implements Viam {
     }
 
     appService = getAppService(
+      _clientChannelBase!,
+      url,
+      payload,
+      token,
+    );
+
+    _dataSyncService = getDataSyncService(
       _clientChannelBase!,
       url,
       payload,
@@ -185,4 +194,13 @@ class ViamImpl implements Viam {
 
   @override
   ClientChannelBase get channel => _clientChannelBase!;
+
+  @override
+  DataSyncService get dataSyncService {
+    if (_dataSyncService == null) {
+      throw UnimplementedError();
+    }
+
+    return _dataSyncService!;
+  }
 }
