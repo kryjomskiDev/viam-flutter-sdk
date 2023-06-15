@@ -7,8 +7,8 @@ class DataSyncService {
 
   DataSyncService(this.client);
 
-  Future<DataCaptureUploadResponse> uploadDataCapture(DataCaptureUploadRequest request) async {
-    final response = await client.dataCaptureUpload(request);
+  Future<DataCaptureUploadResponse> uploadDataCapture(CustomDataCaptureUploadRequest request) async {
+    final response = await client.dataCaptureUpload(request.toDto());
     return response;
   }
 
