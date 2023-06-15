@@ -33,7 +33,7 @@ extension DataCaptureRequestMapper on CustomDataCaptureUploadRequest {
 }
 
 class CustomDataCaptureSensorData {
-  final CustomSensorDataMetadata? metadata;
+  final SensorMetadata? metadata;
   final Map<String, dynamic>? data;
   final List<int>? binary;
 
@@ -44,20 +44,20 @@ extension CustomDataCaptureSensorDataMapper on CustomDataCaptureSensorData {
   SensorData toDto() => SensorData(
         struct: data != null ? data!.toStruct() : null,
         binary: binary,
-        metadata: metadata != null ? metadata!.toDto() : null,
+        metadata: metadata,
       );
 }
 
 class CustomSensorDataMetadata {
-  final DateTime? receivedAt;
-  final DateTime? requestedAt;
+  final Timestamp? receivedAt;
+  final Timestamp? requestedAt;
 
   CustomSensorDataMetadata(this.receivedAt, this.requestedAt);
 }
 
 extension CustomSensorDataMetadataMapper on CustomSensorDataMetadata {
   SensorMetadata toDto() => SensorMetadata(
-        timeReceived: receivedAt != null ? Timestamp.fromDateTime(receivedAt!) : null,
-        timeRequested: requestedAt != null ? Timestamp.fromDateTime(requestedAt!) : null,
+        timeReceived: receivedAt,
+        timeRequested: requestedAt,
       );
 }

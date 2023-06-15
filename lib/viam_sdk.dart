@@ -50,6 +50,7 @@ export 'src/domain/web_rtc/web_rtc_client/web_rtc_client.dart';
 /// Necessary Protos
 export 'src/gen/common/v1/common.pb.dart'
     show ResourceName, Pose, Orientation, PoseInFrame, Vector3, GeoPoint, DoCommandRequest, DoCommandResponse;
+export 'src/gen/google/protobuf/timestamp.pb.dart';
 
 /// Media & Streams
 export 'src/media/image.dart';
