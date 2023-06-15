@@ -40,6 +40,7 @@ export 'src/domain/data/models/viam_order.dart';
 export 'src/domain/data/models/viam_tabular_data_response.dart';
 export 'src/domain/data/models/viam_tags_filter.dart';
 export 'src/domain/data/models/viam_tags_filter_type.dart';
+export 'src/domain/data/service/data_sync_service.dart';
 export 'src/domain/movement/model/viam_linear_velocity.dart';
 export 'src/domain/movement/model/viam_position.dart';
 export 'src/domain/resource/model/viam_resource_name.dart';
